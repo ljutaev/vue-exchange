@@ -1,125 +1,33 @@
 <template>
   <div>
-    <AppHeader />
-    <div class="hero-section">
-      <section class="hero background-img is-large" :style="{ 'background-image': 'url(https://images.unsplash.com/photo-1517457210348-703079e57d4b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)' }">
-        <!-- Hero content: will be in the middle -->
-        <div class="hero-body">
-          <div class="container has-text-centered">
-            <h1 class="title is-size-1 has-text-white">
-              Let's Exchange!
-            </h1>
-            <h2 class="subtitle has-text-light">
-              Products and Services we can exchange together
-            </h2>
-          </div>
-        </div>
-      </section>
-      <div class="search-lookup-wrap">
-        <div class="search-lookup centered">
-          <div class="level">
-            <div class="level-left">
-              <div class="level-item">
-                <span>Search For</span>
-              </div>
-              <div class="level-item">
-                <input type="text"
-                       class="input"
-                       placeholder="Driller">
-              </div>
-              <div class="level-item">
-                <button class="button">Search</button>
-              </div>
-              <div class="level-item">
-                <span>Searching "Driller"</span>
-              </div>
-              <div class="level-item">
-                <span>With tag of</span>
-              </div>
-              <div class="level-item">
-                <button @click="cancelCategory" class="button is-danger">Art</button>
-              </div>
-            </div>
-            <!-- <div class="level-right">
-              <div class="level-item">
-                <button class="button is-medium">Search</button>
-              </div>
-            </div> -->
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <section class="posts">
-      <div class="container">
-        <div class="posts-type">Latest Posts</div>
-        <div class="columns is-multiline">
-          <div class="column is-12-mobile is-6-tablet is-4-widescreen is-6-desktop">
-            <div class="item post-card bottom-border">
-              <a class="item-link" href="#">
-                <figure class="image is-2by1 item-figure background-img" :style="{ 'background-image': 'url(https://images.unsplash.com/photo-1517457210348-703079e57d4b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)' }" alt="">
-                </figure>
-                <div class="item-featured">
-                  Icon
-                </div>
-              </a>
-              <div class="item-tags">
-                <a class="button is-rounded" href="#" title="Some Title">#Art</a>
-              </div>
-              <h2 class="title item-title is-size-4 has-text-weight-extra-bold"><a class="item-link" href="#">Some Title</a></h2>
-              <div class="level">
-                <div class="level-left">
-                  <div class="item-author">Filip Jerga</div>
-                </div>
-                <div class="level-right">
-                  27th December 2019
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="column is-12-mobile is-6-tablet is-4-widescreen is-6-desktop">
-            <div class="item post-card has-border">
-              <a class="item-link" href="#">
-                <div class="item-featured">
-                  Icon
-                </div>
-              </a>
-              <div class="item-tags">
-                <a class="button is-rounded" href="#" title="Some Title">#Art</a>
-              </div>
-              <h2 class="title item-title is-size-4 has-text-weight-extra-bold"><a class="item-link" href="#">Some Title</a></h2>
-              <div class="item-description">
-                Aaaaaaa
-              </div>
-              <div class="level">
-                <div class="level-left">
-                  <div class="item-author">Filip Jerga</div>
-                </div>
-                <div class="level-right">
-                  27th December 2019
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <nav class="pagination is-rounded  is-centered" role="navigation" aria-label="pagination">
-      <ul class="pagination-list">
-          <li><a class="pagination-previous has-text-weight-bold" href="/">Newer Posts</a></li>
-          <li><a class="pagination-link button has-text-weight-bold is-primary">Page 2 of 5</a></li>
-          <li><a class="pagination-next has-text-weight-bold" href="/page/3/">Older Posts</a></li>
-      </ul>
-    </nav>
+    <AppHeader 
+      :brandName="brandName" 
+      :items="menuItems" 
+    />
+    <div :class="$route.path === '/' ? '' : 'page-wrapper'">
+      <router-view />
+    </div>    
   </div>
 </template>
 
 <script>
-import AppHeader from './components/Header'
+import AppHeader from '@/components/Header'
 export default {
   name: 'app',
   components: {
     AppHeader
+  },
+  data () {
+    return {
+      brandName: 'Exchangarios',
+      menuItems: [
+        { text: 'Home', link: '/' },
+        { text: 'About', link: '/about' },
+        { text: 'FAQ', link: '/faq' },
+        { text: 'Login', link: '/login' },
+        { text: 'Register', link: '/register' }
+      ]
+    }
   }
 }
 </script>
@@ -128,6 +36,9 @@ export default {
   @import 'assets/styles/variables.scss';
   @import '~bulma/bulma.sass';
   @import 'assets/styles/main.scss';
+  .page-wrapper {
+    padding: 100px 0 0;
+  }
   .hero-section {
     position: relative;
   }

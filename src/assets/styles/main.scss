@@ -71,18 +71,25 @@ a {
     background: transparent;
     min-height: 4.5rem;
 
+    &.with-background{
+      background-color: $dark-blue-color;
+    }
+
     &-menu {
       .navbar-item {
         color: $white;
         font-weight: $weight-semibold;
         text-transform: uppercase;
 
-        &:hover {
+        &:hover{
           background-color: transparent;
           color: $primary;
         }
-      }
 
+        &:focus{
+          background-color: transparent;
+        }
+      }
       &.is-active {
         .navbar-item { color: $dark; }
       }
