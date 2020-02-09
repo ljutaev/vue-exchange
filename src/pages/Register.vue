@@ -1,5 +1,5 @@
 <template>
-  <div class="container has-text-centered">
+  <div class="container has-text-centered base-page">
     <div class="column is-4 is-offset-4">
       <h3 class="title has-text-grey">Register</h3>
       <div class="box">
@@ -9,34 +9,60 @@
         <form>
           <div class="field">
             <div class="control">
-              <input class="input is-large"
-                     type="email"
-                     placeholder="Your Email"
-                     autofocus=""
-                     autocomplete="email">
-              <!-- <div class="form-error">
-                <span class="help is-danger">Email is required</span>
-                <span class="help is-danger">Email address is not valid</span>
-              </div> -->
+              <input 
+                v-model="form.email"
+                class="input is-large"
+                type="email"
+                placeholder="Your Email"
+                autocomplete="email">
             </div>
           </div>
           <div class="field">
             <div class="control">
-              <input class="input is-large"
-                     type="password"
-                     placeholder="Your Password"
-                     autocomplete="current-password">
-              <!-- <div class="form-error">
-                <span class="help is-danger">Password is required</span>
-              </div> -->
+              <input 
+                v-model="form.fullName"
+                class="input is-large"
+                type="text"
+                placeholder="Full Name">
             </div>
           </div>
-          <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
+          <div class="field">
+            <div class="control">
+              <input 
+                v-model="form.avatar"
+                class="input is-large"
+                type="text"
+                placeholder="Avatar Url">
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input 
+                v-model="form.password"
+                class="input is-large"
+                type="password"
+                placeholder="Your Password"
+                autocomplete="current-password">
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input 
+                v-model="form.passwordComfirmation"
+                class="input is-large"
+                type="password"
+                placeholder="Password Confirmation">
+            </div>
+          </div>
+          <button 
+            @click="onRegister"
+            type="button"
+            class="button is-block is-info is-large is-fullwidth">Sign Up</button>
         </form>
       </div>
       <p class="has-text-grey">
         <a>Sign In With Google</a>&nbsp;
-        <router-link>Sign Up</router-link>&nbsp;·&nbsp;
+        <router-link to="/login">Sign In</router-link>&nbsp;·&nbsp;
         <a href="../">Need Help?</a>
       </p>
     </div>
@@ -45,7 +71,28 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      form: {
+       email: 'default@gmail.com',
+       fullName: '',
+       avatar: '',
+       password: '',
+       passwordComfirmation: '' 
+      }
+    }
+  },
+  methods: {
+    onRegister() {
+      this.$store.dispatch('auth/signUp', this.form)
+        .then(user => {
+          console.log(user)
+          this.$router.push('/')
+        }).catch(error => {
+          this.$toasted.error(error, {duration: 3000})
+        })
+    }
+  }
 }
 </script>
 

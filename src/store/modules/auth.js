@@ -1,3 +1,24 @@
+import firebase from 'firebase/app'
+import 'firebase/auth'
+// import { db } from '@/db'
+// import Vue from 'vue'
+
 export default {
-    namespaced: true
+    namespaced: true,
+
+    actions: {
+        signUp(context, {email, password}) {
+            return firebase
+              .auth()
+              .createUserWithEmailAndPassword(email, password)
+              .then(({user}) => {
+                  // TODO: Create profile collection
+                  return user
+                })
+                .catch(err => {
+                  const message = err.message
+                  return Promise.reject(message)
+                });
+        },
+    }
 }

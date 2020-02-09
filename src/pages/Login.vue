@@ -26,51 +26,10 @@
           <div class="field">
             <div class="control">
               <input
-                v-model="form.fullName"
-                class="input is-large"
-                type="email"
-                placeholder="Full Name"
-              >
-              <!-- <div class="form-error">
-                <span class="help is-danger">Email is required</span>
-                <span class="help is-danger">Email address is not valid</span>
-              </div> -->
-            </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <input
-                v-model="form.avatar"
-                class="input is-large"
-                type="email"
-                placeholder="Avatar URL"
-              >
-              <!-- <div class="form-error">
-                <span class="help is-danger">Email is required</span>
-                <span class="help is-danger">Email address is not valid</span>
-              </div> -->
-            </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <input
                 v-model="form.password"
                 class="input is-large"
                 type="password"
                 placeholder="Your Password"
-              >
-              <!-- <div class="form-error">
-                <span class="help is-danger">Password is required</span>
-              </div> -->
-            </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <input
-                v-model="form.passwordConfirmation"
-                class="input is-large"
-                type="password"
-                placeholder="Password Confirmation"
               >
               <!-- <div class="form-error">
                 <span class="help is-danger">Password is required</span>
@@ -97,11 +56,8 @@ export default {
   data() {
     return {
       form: {
-        email: 'default@gmail.com',
-        fullName: '',
-        avatar: '',
+        email: '',
         password: '',
-        passwordConfirmation: ''
       }
     }
   },
