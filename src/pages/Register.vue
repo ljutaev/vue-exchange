@@ -85,8 +85,15 @@ export default {
   methods: {
     onRegister() {
       this.$store.dispatch('auth/signUp', this.form)
-        .then(user => {
-          console.log(user)
+        .then(async user => {
+          await this.$store.dispatch('auth/createUserProfile', {
+            uid: user.uid,
+            userProfile: {
+              fullName: this.form.fullName,
+              avatar: this.form.avatar,
+              user: user.uid         
+            }
+          })
           this.$router.push('/')
         }).catch(error => {
           this.$toasted.error(error, {duration: 3000})
