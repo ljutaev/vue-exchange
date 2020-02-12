@@ -9,17 +9,6 @@ export default {
         }
     },
     actions: {
-        // getExchanges(context) {
-        //     db.collection('exchanges')
-        //         .doc('93sgHVKffhkJm26lcZxv')
-        //         .get()
-        //         .then(snapshot => {
-        //             debugger
-        //             const exchange = snapshot.data()
-        //             return exchange
-        //         })
-        //     // context.commit('setExchanges', exchanges)
-        // },
         bindExchanges: firestoreAction(({bindFirestoreRef}) => {
             return bindFirestoreRef('items', db.collection('exchanges'))
         }),

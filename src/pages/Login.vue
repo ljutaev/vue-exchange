@@ -7,7 +7,7 @@
         <figure class="avatar">
           <img src="https://placehold.it/128x128">
         </figure>
-        <form>
+        <form @submit.prevent="handleLogin">
           <div class="field">
             <div class="control">
               <input
@@ -63,7 +63,13 @@ export default {
   },
   methods: {
     handleLogin() {
-      console.log(this.form)
+      debugger
+      this.$store.dispatch('auth/signIn', this.form)
+        .then( _ => {
+          this.$router.push('/')
+          console.log(_)
+        })
+        .catch(e => this.$toasted.error(e, { duration: 3000 }) )
     }
   }
 }
