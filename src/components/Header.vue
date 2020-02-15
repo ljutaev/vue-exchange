@@ -33,6 +33,34 @@
                 class="navbar-item nav-home"
                 :to="link.link"                
               >{{ link.text }}</router-link>
+
+              <template v-if="!isAuthenticated">                
+                <router-link
+                  to="/login"
+                  class="navbar-item nav-home"
+                >
+                  Login
+                </router-link>
+                <router-link
+                  to="/register"
+                  class="navbar-item nav-home"
+                >
+                  Register
+                </router-link>
+              </template>
+              <template v-else>
+                <router-link
+                  to="/user/me"
+                  class="navbar-item nav-home"
+                >
+                  Profile
+                </router-link>
+                <a
+                  @click.prevent="$store.dispatch('auth/signOut')"
+                  href="#"
+                  class="navbar-item nav-home"
+                >Logout</a>
+              </template>
             </div>
           </div>
         </div>

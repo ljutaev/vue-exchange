@@ -21,9 +21,9 @@ Vue.config.productionTip = false
 
 let app;
 
-firebase.auth().onAuthStateChanged(user => {
+firebase.auth().onAuthStateChanged(async user => {
   if(user) {
-    store.commit('auth/setAuthUser', user)
+    await store.dispatch('auth/storeAuthUser', user)
   }
   if( !app ) {
     app = new Vue({

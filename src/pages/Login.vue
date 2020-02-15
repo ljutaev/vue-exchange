@@ -68,6 +68,7 @@ export default {
         .then( _ => {
           this.$router.push('/')
           console.log(_)
+          debugger
         })
         .catch(e => this.$toasted.error(e, { duration: 3000 }) )
     }
