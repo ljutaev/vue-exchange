@@ -55,6 +55,12 @@
                 >
                   Profile
                 </router-link>
+                <router-link
+                  to="/exchanges/new"
+                  class="navbar-item nav-home"
+                >
+                  Create Exchange
+                </router-link>
                 <a
                   @click.prevent="$store.dispatch('auth/signOut')"
                   href="#"

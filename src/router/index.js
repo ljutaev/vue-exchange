@@ -7,6 +7,7 @@ import FaqPage from '@/pages/Faq'
 import LoginPage from '@/pages/Login'
 import RegisterPage from '@/pages/Register'
 import ProfilePage from '@/pages/Profile'
+import ExchangeCreatePage from '@/pages/ExchangeCreate'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -48,6 +49,12 @@ const router = new Router({
             path: '/user/me',
             name: 'ProfilePage',
             component: ProfilePage,
+            meta: { onlyAuthUser: true }
+        },
+        {
+            path: '/exchanges/new',
+            name: 'ExchangeCreatePage',
+            component: ExchangeCreatePage,
             meta: { onlyAuthUser: true }
         }
     ],
