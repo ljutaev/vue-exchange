@@ -16,7 +16,12 @@
         <div class="field">
           <label class="label">Title</label>
           <div class="control">
-            <input v-model="form.title" class="input" type="text" placeholder="Text input">
+            <input
+              @blur="$v.form.title.$touch" 
+              v-model="form.title" 
+              class="input" type="text"
+              placeholder="Text input"
+            >
             <div class="form-error" v-if="$v.form.title.$error">
               <span
                 v-if="!$v.form.title.required"
@@ -32,7 +37,9 @@
         <div class="field">
           <label class="label">Description</label>
           <div class="control">
-            <textarea v-model="form.description"  class="textarea" placeholder="Textarea"></textarea>
+            <textarea 
+              @blur="$v.form.description.$touch"
+              v-model="form.description"  class="textarea" placeholder="Textarea"></textarea>
             <div class="form-error" v-if="$v.form.description.$error">
               <span
                 v-if="!$v.form.description.required"
@@ -43,31 +50,45 @@
         <div class="field">
           <label class="label">Image Link</label>
           <div class="control">
-            <input v-model="form.image"  class="input" type="text" placeholder="Text input">
+            <input 
+            @blur="$v.form.image.$touch"
+            v-model="form.image"  class="input" type="text" placeholder="Text input">
             <div class="form-error" v-if="$v.form.image.$error">
               <span
                 v-if="!$v.form.image.url"
                 class="help is-danger"
                 >Image url is not valid</span>
+              <span
+                v-if="!$v.form.image.supportedFileType"
+                class="help is-danger"
+                >Image extension is not supported</span>
             </div>
           </div>
         </div>
         <div class="field">
           <label class="label">Price</label>
           <div class="control">
-            <input v-model="form.price"  class="input" type="number" placeholder="Text input">
+            <input
+            @blur="$v.form.price.$touch"
+            v-model="form.price"  class="input" type="number" placeholder="Text input">
             <div class="form-error" v-if="$v.form.price.$error">
               <span
                 v-if="!$v.form.price.required"
                 class="help is-danger"
               >Price is required</span>
+              <span
+                v-if="!$v.form.price.minValue"
+                class="help is-danger"
+              >Minimum price is ten dollars</span>
             </div>
           </div>
         </div>
         <div class="field">
           <label class="label">Country</label>
           <div class="control">
-            <input v-model="form.country"  class="input" type="text" placeholder="Text input">
+            <input 
+            @blur="$v.form.country.$touch"
+            v-model="form.country"  class="input" type="text" placeholder="Text input">
             <div class="form-error" v-if="$v.form.country.$error">
               <span
                 v-if="!$v.form.country.required"
@@ -79,12 +100,29 @@
         <div class="field">
           <label class="label">City</label>
           <div class="control">
-            <input v-model="form.city"  class="input" type="text" placeholder="Text input">
+            <input 
+            @blur="$v.form.city.$touch"
+             v-model="form.city"  class="input" type="text" placeholder="City input">
             <div class="form-error" v-if="$v.form.city.$error">
               <span
                 v-if="!$v.form.city.required"
                 class="help is-danger"
               >City is required</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Tags</label>
+          <div class="control">
+            <input @input="handleTags"
+             class="input" type="text"
+             placeholder="programming">
+            <div
+              v-for="tag in form.tags"
+              :key="`t-${tag}`"
+              class="tag is-primary is-medium">
+              {{tag}}
             </div>
           </div>
         </div>
@@ -107,7 +145,8 @@
 </template>
 
 <script>
-import { required, minLength, url } from 'vuelidate/lib/validators'
+import { required, minLength, url, minValue } from 'vuelidate/lib/validators'
+import { supportedFileType } from '@/helpers/validators'
 export default {
   data() {
     return {
@@ -133,10 +172,12 @@ export default {
         required
       },
       image: {
-        url
+        url,
+        supportedFileType
       },
       price: {
-        required   
+        required,
+        minValue: minValue(10)
       },
       country: {
         required
@@ -158,6 +199,18 @@ export default {
         console.log(minLength)
         alert(JSON.stringify(this.form))
       }
+    },
+    handleTags(e) {
+      const {value} = e.target
+
+      if( value 
+          && value.trim().length > 1 
+          && (value.substr(-1) === ',' || value.substr(-1) === ' ' )) {
+        this.form.tags.push(value.split(',')[0])
+        e.target.value = ''
+        
+      }
+      console.log(value)
     }
   }
 }
@@ -168,5 +221,8 @@ export default {
 .form-container {
   max-width: 960px;
   margin: 0 auto;
+}
+.tag {
+  margin: 3px;
 }
 </style>
